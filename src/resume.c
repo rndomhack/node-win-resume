@@ -57,7 +57,9 @@ int main(int argc, char *_argv[])
 	HANDLE hWaitThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)WaitThread, NULL, 0, NULL);
 
 	while (WaitForSingleObject(hWaitThread, 10UL) != WAIT_OBJECT_0 && WaitForSingleObject(hTimer, 10UL) == WAIT_TIMEOUT);
-
+	
+	SetThreadExecutionState(ES_SYSTEM_REQUIRED);
+	
 	if (hTimer) {
 		CancelWaitableTimer(hTimer);
 		CloseHandle(hTimer);
